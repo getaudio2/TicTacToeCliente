@@ -11,12 +11,32 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/button_reset"
+            android:id="@+id/btn_conn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
-            android:text="reset" />
+            android:text="Conn" />
+
+        <EditText
+            android:id="@+id/editTextIp"
+            android:layout_width="173dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="IP" />
+
+        <EditText
+            android:id="@+id/editTextPort"
+            android:layout_width="82dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginEnd="33dp"
+            android:layout_toStartOf="@+id/btn_conn"
+            android:layout_toEndOf="@+id/editTextIp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Port" />
     </RelativeLayout>
 
     <LinearLayout

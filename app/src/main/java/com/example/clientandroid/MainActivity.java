@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btnConn = findViewById(R.id.btn_conn);
+        EditText txtIp = findViewById(R.id.editTextIp);
+        EditText txtPort = findViewById(R.id.editTextPort);
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 String buttonID = "button_" + i + j;
