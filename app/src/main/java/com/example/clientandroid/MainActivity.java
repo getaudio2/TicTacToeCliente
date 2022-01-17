@@ -1,5 +1,6 @@
 package com.example.clientandroid;
 
+import static com.example.clientandroid.model.DefaultConstants.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +24,12 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Button btnConn;
+    EditText txtIp, txtPort;
+    TextView txtResult;
+
+    MainActivity instance;
+
     /**
     * Button array
     * */
@@ -33,30 +41,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Puerto
      * */
-    private static final int SERVERPORT = 5000;
+    //private static final int SERVERPORT = 5000;
     /**
      * HOST
      * */
-    private static final String ADDRESS = "10.0.2.2";
+    //private static final String ADDRESS = "10.0.2.2";
+
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnConn = findViewById(R.id.btn_conn);
-        EditText txtIp = findViewById(R.id.editTextIp);
-        EditText txtPort = findViewById(R.id.editTextPort);
+        btnConn = findViewById(R.id.btn_conn);
+        txtIp = findViewById(R.id.editTextIp);
+        txtPort = findViewById(R.id.editTextPort);
+        txtResult = findViewById(R.id.txtResult);
+        instance = this;
 
-        for (int i = 0; i < 3; i++) {
+        btnConn.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String ip = txtIp.getText().toString();
+                        int port = Integer.valueOf(txtPort.getText().toString());
+
+                        if(port!=0 && !ip.equals("")){
+                            ThreadConnection conn = new ThreadConnection(ip, port, instance);
+                            conn.execute();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "El ip o port són incorrectes", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        /*for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 String buttonID = "button_" + i + j;
                 int resID = getResources().getIdentifier(buttonID, "id", getPackageName());
                 buttons[i][j] = findViewById(resID);
                 buttons[i][j].setOnClickListener(this);
             }
+        }*/
+    }
+
+    public void updateUI(byte header){
+        switch (header){
+            case CONNECTION_OK:
+                txtResult.setText("CONNECTED OK");
+                //btnStart.setEnabled(true);
+                break;
+            case CONNECTION_KO:
+                txtResult.setText("CONNECTED KO");
+                break;
         }
-    }//end:onCreate
+    }
 
     @Override
     public void onClick(View v) {
@@ -115,17 +155,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * Clase para interactuar con el servidor
      * */
-    class MyATaskCliente extends AsyncTask<String,Void,String>{
+    /*class MyATaskCliente extends AsyncTask<String,Void,String>{*/
 
         /**
          * Ventana que bloqueara la pantalla del movil hasta recibir respuesta del servidor
          * */
-        ProgressDialog progressDialog;
+        /*ProgressDialog progressDialog;*/
 
         /**
          * muestra una ventana emergente
          * */
-        @Override
+        /*@Override
         protected void onPreExecute()
         {
             super.onPreExecute();
@@ -134,12 +174,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             progressDialog.setTitle("Connecting to server");
             progressDialog.setMessage("Please wait...");
             progressDialog.show();
-        }
+        }*/
 
         /**
          * Se conecta al servidor y trata resultado
          * */
-        @Override
+        /*@Override
         protected String doInBackground(String... values){
 
             try {
@@ -173,15 +213,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Log.e("E/TCP Client", "" + ex.getMessage());
                 return ex.getMessage();
             }
-        }
+        }*/
 
         /**
          * Oculta ventana emergente y muestra resultado en pantalla
          * */
-        @Override
+        /*@Override
         protected void onPostExecute(String value){
             progressDialog.dismiss();
-            editText2.setText(value);
+            Log.e("", "" + value);
         }
-    }
+    }*/
 }
