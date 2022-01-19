@@ -24,9 +24,10 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnConn;
+    Button btnConn, btnStart;
     EditText txtIp, txtPort;
     TextView txtResult;
+    ThreadConnection conn;
 
     MainActivity instance;
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * */
     //private static final String ADDRESS = "10.0.2.2";
 
-    private Context context = this;
+    //private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +56,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         btnConn = findViewById(R.id.btn_conn);
+        btnStart =  findViewById(R.id.btn_start);
         txtIp = findViewById(R.id.editTextIp);
         txtPort = findViewById(R.id.editTextPort);
         txtResult = findViewById(R.id.txtResult);
         instance = this;
+
+        btnStart.setEnabled(false);
 
         btnConn.setOnClickListener(
                 new View.OnClickListener() {
@@ -68,10 +72,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         int port = Integer.valueOf(txtPort.getText().toString());
 
                         if(port!=0 && !ip.equals("")){
-                            ThreadConnection conn = new ThreadConnection(ip, port, instance);
+                            conn = new ThreadConnection(ip, port, instance);
                             conn.execute();
                         }else{
                             Toast.makeText(getApplicationContext(), "El ip o port són incorrectes", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        btnStart.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            Socket socket = conn.getSocket();
+                            ThreadNewGame newGame = new ThreadNewGame(socket, instance);
+                            newGame.execute();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -90,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (header){
             case CONNECTION_OK:
                 txtResult.setText("CONNECTED OK");
-                //btnStart.setEnabled(true);
+                btnStart.setEnabled(true);
                 break;
             case CONNECTION_KO:
                 txtResult.setText("CONNECTED KO");

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -25,6 +26,12 @@ public class ThreadConnection extends AsyncTask<Void, Void, Boolean> {
         this.port = port;
         this.instance = instance;
     }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public static byte HEADER_START = 0x01;
 
     /**
      * Ventana que bloqueara la pantalla del movil hasta recibir respuesta del servidor
@@ -58,6 +65,11 @@ public class ThreadConnection extends AsyncTask<Void, Void, Boolean> {
             socket = new Socket(serverAddr, port);
             Log.i("I/TCP Client", "Connected to server");
 
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            out.write(HEADER_START);
+
+            socket.close();
+
             return true;
         }catch (UnknownHostException ex) {
             Log.e("E/TCP Client", "" + ex.getMessage());
@@ -81,4 +93,5 @@ public class ThreadConnection extends AsyncTask<Void, Void, Boolean> {
             instance.updateUI(CONNECTION_KO);
         }
     }
+
 }
