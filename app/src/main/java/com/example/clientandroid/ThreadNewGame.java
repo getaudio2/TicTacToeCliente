@@ -1,6 +1,8 @@
 package com.example.clientandroid;
 
+import static com.example.clientandroid.model.DefaultConstants.*;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.DataInput;
 import java.io.DataInputStream;
@@ -27,16 +29,18 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            output.writeByte(0x01);
+            output.writeByte(HEADER_START);
 
-            byte cap = input.readByte();
-            int quiComença = input.readInt();
+            int primer = input.readInt();
+            Log.i("AAAAAA", primer + "");
 
-            if (quiComença == 1) {
-                byte capM = input.readByte();
-                int cord1 = input.readInt();
-                int cord2 = input.readInt();
+            if (primer == SEND_MOVE_OR_GET_MOVE) {
+                int cordX = input.read();
+                int cordY = input.read();
+                Log.i("Servidor: ", "" + cordX + " " + cordY);
             }
+
+            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

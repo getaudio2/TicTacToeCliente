@@ -31,8 +31,6 @@ public class ThreadConnection extends AsyncTask<Void, Void, Boolean> {
         return socket;
     }
 
-    public static byte HEADER_START = 0x01;
-
     /**
      * Ventana que bloqueara la pantalla del movil hasta recibir respuesta del servidor
      * */
@@ -64,11 +62,6 @@ public class ThreadConnection extends AsyncTask<Void, Void, Boolean> {
             Log.i("I/TCP Client", "Connecting...");
             socket = new Socket(serverAddr, port);
             Log.i("I/TCP Client", "Connected to server");
-
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            out.write(HEADER_START);
-
-            socket.close();
 
             return true;
         }catch (UnknownHostException ex) {
