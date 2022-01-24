@@ -36,16 +36,6 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
 
             Log.i("AAAAAA", "" + a + " " + b);
 
-
-            /*int primer = input.readInt();
-            Log.i("AAAAAA", primer + "");
-
-            if (primer == SEND_MOVE_OR_GET_MOVE) {
-                int cordX = input.read();
-                int cordY = input.read();
-                Log.i("Servidor: ", "" + cordX + " " + cordY);
-            }*/
-
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,5 +46,14 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String resposta){
 
+    }
+
+    public void enviarCords(int cordX, int cordY) {
+        try {
+            output.writeInt(cordX);
+            output.writeInt(cordY);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

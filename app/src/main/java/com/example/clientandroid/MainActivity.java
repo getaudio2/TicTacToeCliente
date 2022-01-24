@@ -28,13 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText txtIp, txtPort;
     TextView txtResult;
     ThreadConnection conn;
+    ThreadNewGame newGame;
 
     MainActivity instance;
-
-    /**
-    * Button array
-    * */
-    private Button[][] buttons = new Button[3][3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtPort = findViewById(R.id.editTextPort);
         txtResult = findViewById(R.id.txtResult);
         instance = this;
-
-
 
         btnStart.setEnabled(false);
 
@@ -74,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onClick(View view) {
                         try {
                             Socket socket = conn.getSocket();
-                            ThreadNewGame newGame = new ThreadNewGame(socket, instance);
+                            newGame = new ThreadNewGame(socket, instance);
                             newGame.execute();
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -103,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int cordX = Character.getNumericValue(btnTag.charAt(4));
         int cordY = Character.getNumericValue(btnTag.charAt(5));
 
-        Log.i("EEEEEEE", "" + cordX + " " + cordY);
+        newGame.enviarCords(cordX, cordY);
+
+        Log.i("COORDENADAS ENVIADAS", "" + cordX + " " + cordY);
     }
 }
