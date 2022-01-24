@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="10.0.2.2"
             android:hint="IP"/>
 
         <EditText
@@ -36,6 +37,7 @@
             android:layout_toEndOf="@+id/editTextIp"
             android:ems="10"
             android:inputType="textPersonName"
+            android:text="5000"
             android:hint="Port" />
     </RelativeLayout>
 
@@ -55,13 +57,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="60sp"/>
+            android:onClick="onClick"
+            android:tag="btn_00"
+            android:textSize="60sp" />
 
         <Button
             android:id="@+id/button_01"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_10"
             android:textSize="60sp"/>
 
         <Button
@@ -69,6 +75,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_20"
             android:textSize="60sp"/>
     </LinearLayout>
 
@@ -82,6 +90,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_01"
             android:textSize="60sp"/>
 
         <Button
@@ -89,6 +99,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_11"
             android:textSize="60sp"/>
 
         <Button
@@ -96,6 +108,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_21"
             android:textSize="60sp"/>
     </LinearLayout>
 
@@ -109,6 +123,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_02"
             android:textSize="60sp"/>
 
         <Button
@@ -116,6 +132,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_12"
             android:textSize="60sp"/>
 
         <Button
@@ -123,6 +141,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onClick"
+            android:tag="btn_22"
             android:textSize="60sp"/>
     </LinearLayout>
 

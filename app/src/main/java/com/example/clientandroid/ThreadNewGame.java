@@ -31,14 +31,20 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
         try {
             output.writeByte(HEADER_START);
 
-            int primer = input.readInt();
+            int a = input.readInt();
+            int b = input.readInt();
+
+            Log.i("AAAAAA", "" + a + " " + b);
+
+
+            /*int primer = input.readInt();
             Log.i("AAAAAA", primer + "");
 
             if (primer == SEND_MOVE_OR_GET_MOVE) {
                 int cordX = input.read();
                 int cordY = input.read();
                 Log.i("Servidor: ", "" + cordX + " " + cordY);
-            }
+            }*/
 
             socket.close();
         } catch (IOException e) {
