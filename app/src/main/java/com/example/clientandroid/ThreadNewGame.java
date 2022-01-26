@@ -29,14 +29,31 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            output.writeByte(HEADER_START);
+            int cordX = 3;
+            int cordY = 3;
 
-            int a = input.readInt();
-            int b = input.readInt();
+            output.writeByte(SEND_MOVE_OR_GET_MOVE);
 
-            Log.i("AAAAAA", "" + a + " " + b);
+            output.write(1);
+            output.write(0);
 
-            socket.close();
+            /*byte request = input.readByte();
+
+            if (request == HEADER_START) {
+
+                int i = input.read();
+                Log.i("AAAAAA", "" + i);
+
+                if (i == 1) {
+                    byte anotherReq = input.readByte();
+                    cordX = input.read();
+                    cordY = input.read();
+                    Log.i("AAAAAA", "" + cordX + " " + cordY);
+                } else {
+
+                }
+            }*/
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,8 +67,8 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
 
     public void enviarCords(int cordX, int cordY) {
         try {
-            output.writeInt(cordX);
-            output.writeInt(cordY);
+            output.write(cordX);
+            output.write(cordY);
         } catch (IOException e) {
             e.printStackTrace();
         }

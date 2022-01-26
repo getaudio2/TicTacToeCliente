@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int cordX = Character.getNumericValue(btnTag.charAt(4));
         int cordY = Character.getNumericValue(btnTag.charAt(5));
 
-        newGame.enviarCords(cordX, cordY);
-
         Log.i("COORDENADAS ENVIADAS", "" + cordX + " " + cordY);
+        newGame.enviarCords(cordX, cordY);
     }
 }
