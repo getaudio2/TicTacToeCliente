@@ -29,10 +29,6 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            /*output.writeByte(SEND_MOVE_OR_GET_MOVE);
-
-            output.write(2);
-            output.write(1);*/
 
             int ganador = 2;
 
@@ -53,6 +49,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                         byte headermove = input.readByte();
                         cordX = input.readInt();
                         cordY = input.readInt();
+                        instance.updateCasillas(cordX, cordY);
                         Log.i("COORDENADAS HEADER START", "" + cordX + " " + cordY);
                     }
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
@@ -62,6 +59,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                 } else if (request == SEND_MOVE_OR_GET_MOVE) {
                     cordX = input.readInt();
                     cordY = input.readInt();
+                    instance.updateCasillas(cordX, cordY);
                     Log.i("COORDENADAS SM OR GM", "" + cordX + " " + cordY);
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
                     output.writeInt(1);
@@ -69,6 +67,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                 } else if (request == GET_MOVE_AND_GET_WINNER) {
                     cordX = input.readInt();
                     cordY = input.readInt();
+                    instance.updateCasillas(cordX, cordY);
                     ganador = input.readInt();
                 } else if (request == GET_WINNER) {
                     ganador = input.readInt();
