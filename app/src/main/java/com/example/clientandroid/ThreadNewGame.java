@@ -29,30 +29,52 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
     protected String doInBackground(Void... voids) {
 
         try {
-            int cordX = 3;
-            int cordY = 3;
+            /*output.writeByte(SEND_MOVE_OR_GET_MOVE);
 
-            output.writeByte(SEND_MOVE_OR_GET_MOVE);
+            output.write(2);
+            output.write(1);*/
 
-            output.write(1);
-            output.write(0);
+            int ganador = 2;
 
-            /*byte request = input.readByte();
+            output.writeByte(HEADER_START);
 
-            if (request == HEADER_START) {
+            while(ganador == 2) {
+                byte request = input.readByte();
+                Log.i("TESTAR", "capinici " + request);
 
-                int i = input.read();
-                Log.i("AAAAAA", "" + i);
+                int cordX = 0;
+                int cordY = 0;
 
-                if (i == 1) {
-                    byte anotherReq = input.readByte();
-                    cordX = input.read();
-                    cordY = input.read();
-                    Log.i("AAAAAA", "" + cordX + " " + cordY);
-                } else {
+                if (request == HEADER_START) {
+                    int i = input.readInt();
+                    Log.i("TESTAR", "quicomenca " + i);
 
+                    if (i == 1) {
+                        byte headermove = input.readByte();
+                        cordX = input.readInt();
+                        cordY = input.readInt();
+                        Log.i("COORDENADAS HEADER START", "" + cordX + " " + cordY);
+                    }
+                    output.writeByte(SEND_MOVE_OR_GET_MOVE);
+                    output.writeInt(2);
+                    output.writeInt(0);
+
+                } else if (request == SEND_MOVE_OR_GET_MOVE) {
+                    cordX = input.readInt();
+                    cordY = input.readInt();
+                    Log.i("COORDENADAS SM OR GM", "" + cordX + " " + cordY);
+                    output.writeByte(SEND_MOVE_OR_GET_MOVE);
+                    output.writeInt(1);
+                    output.writeInt(1);
+                } else if (request == GET_MOVE_AND_GET_WINNER) {
+                    cordX = input.readInt();
+                    cordY = input.readInt();
+                    ganador = input.readInt();
+                } else if (request == GET_WINNER) {
+                    ganador = input.readInt();
                 }
-            }*/
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
