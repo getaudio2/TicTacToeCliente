@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ThreadConnection conn;
     ThreadNewGame newGame;
 
+    int cordX = 1;
+    int cordY = 2;
+
     MainActivity instance;
 
     @Override
@@ -151,13 +154,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ((Button) v).setText("X");
 
         String btnTag = ((Button) v).getTag().toString();
-        int cordX = Character.getNumericValue(btnTag.charAt(4));
-        int cordY = Character.getNumericValue(btnTag.charAt(5));
+        cordX = Character.getNumericValue(btnTag.charAt(4));
+        cordY = Character.getNumericValue(btnTag.charAt(5));
 
-        disableBtn();
+        //disableBtn();
 
         Log.i("COORDENADAS ENVIADAS", "" + cordX + " " + cordY);
         //newGame.enviarCords(cordX, cordY);
+    }
+
+    public int getCordX() {
+        return cordX;
+    }
+
+    public int getCordY() {
+        return cordY;
     }
 
     public void enableBtn() {

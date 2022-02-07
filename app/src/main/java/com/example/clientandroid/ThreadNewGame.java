@@ -53,29 +53,39 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                         Log.i("COORDENADAS HEADER START", "" + cordX + " " + cordY);
                     }
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
-                    output.writeInt(2);
-                    output.writeInt(0);
-
+                    synchronized (this) {
+                        this.wait(5000);
+                    }
+                    output.writeInt(instance.getCordX());
+                    output.writeInt(instance.getCordY());
+                    //habilitarBotones();
                 } else if (request == SEND_MOVE_OR_GET_MOVE) {
                     cordX = input.readInt();
                     cordY = input.readInt();
                     instance.updateCasillas(cordX, cordY);
                     Log.i("COORDENADAS SM OR GM", "" + cordX + " " + cordY);
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
-                    output.writeInt(1);
-                    output.writeInt(1);
+                    synchronized (this) {
+                        this.wait(5000);
+                    }
+                    output.writeInt(instance.getCordX());
+                    output.writeInt(instance.getCordY());
+                    //habilitarBotones();
                 } else if (request == GET_MOVE_AND_GET_WINNER) {
                     cordX = input.readInt();
                     cordY = input.readInt();
                     instance.updateCasillas(cordX, cordY);
+                    Log.i("COORDENADAS GM AND GW","" + cordX + " " + cordY);
                     ganador = input.readInt();
+                    Log.i("SE ACABO", "Ganador: " + ganador);
                 } else if (request == GET_WINNER) {
                     ganador = input.readInt();
+                    Log.i("SE ACABO", "Ganador: " + ganador);
                 }
             }
 
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return "";
@@ -93,5 +103,9 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void habilitarBotones() {
+        instance.enableBtn();
     }
 }
