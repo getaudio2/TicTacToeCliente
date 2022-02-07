@@ -172,7 +172,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void enableBtn() {
-        btn00.setEnabled(true);
+        for (Button btn: buttons) {
+            btn.setEnabled(true);
+        }
+        /*btn00.setEnabled(true);
         btn01.setEnabled(true);
         btn02.setEnabled(true);
         btn10.setEnabled(true);
@@ -180,11 +183,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn12.setEnabled(true);
         btn20.setEnabled(true);
         btn21.setEnabled(true);
-        btn22.setEnabled(true);
+        btn22.setEnabled(true);*/
     }
 
     public void disableBtn() {
-        btn00.setEnabled(false);
+        for (Button btn: buttons) {
+            btn.setEnabled(false);
+        }
+        /*btn00.setEnabled(false);
         btn01.setEnabled(false);
         btn02.setEnabled(false);
         btn10.setEnabled(false);
@@ -192,6 +198,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn12.setEnabled(false);
         btn20.setEnabled(false);
         btn21.setEnabled(false);
-        btn22.setEnabled(false);
+        btn22.setEnabled(false);*/
     }
 }

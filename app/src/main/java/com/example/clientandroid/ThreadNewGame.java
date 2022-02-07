@@ -50,6 +50,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                         cordX = input.readInt();
                         cordY = input.readInt();
                         instance.updateCasillas(cordX, cordY);
+                        habilitarBotones();
                         Log.i("COORDENADAS HEADER START", "" + cordX + " " + cordY);
                     }
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
@@ -63,6 +64,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                     cordX = input.readInt();
                     cordY = input.readInt();
                     instance.updateCasillas(cordX, cordY);
+                    habilitarBotones();
                     Log.i("COORDENADAS SM OR GM", "" + cordX + " " + cordY);
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
                     synchronized (this) {
