@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ThreadConnection conn;
     ThreadNewGame newGame;
 
-    int cordX = 1;
-    int cordY = 2;
+    int cordX = 3;
+    int cordY = 3;
 
     MainActivity instance;
 
@@ -169,6 +169,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public int getCordY() {
         return cordY;
+    }
+
+    public void setCordX(int cordX) {
+        this.cordX = cordX;
+    }
+
+    public void setCordY(int cordY) {
+        this.cordY = cordY;
     }
 
     public void enableBtn() {

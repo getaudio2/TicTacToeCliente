@@ -18,6 +18,9 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
     private DataInputStream input;
     private DataOutputStream output;
 
+    private int cordXClient = 3;
+    private int cordYClient = 3;
+
     public ThreadNewGame(Socket socket, MainActivity instance) throws IOException {
         this.socket = socket;
         this.instance = instance;
@@ -36,7 +39,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
 
             while(ganador == 2) {
                 byte request = input.readByte();
-                Log.i("TESTAR", "capinici " + request);
+                Log.i("Server", " request: " + request);
 
                 int cordX = 0;
                 int cordY = 0;
@@ -50,28 +53,49 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                         cordX = input.readInt();
                         cordY = input.readInt();
                         instance.updateCasillas(cordX, cordY);
-                        habilitarBotones();
+                        //habilitarBotones();
                         Log.i("COORDENADAS HEADER START", "" + cordX + " " + cordY);
                     }
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
-                    synchronized (this) {
-                        this.wait(5000);
+                    while(cordXClient == 3 && cordYClient == 3){
+                        cordXClient = instance.getCordX();
+                        cordYClient = instance.getCordY();
                     }
+                    cordXClient = 3;
+                    cordYClient = 3;
+                    /*synchronized (this) {
+                        this.wait(5000);
+                    }*/
+
                     output.writeInt(instance.getCordX());
                     output.writeInt(instance.getCordY());
+
+                    instance.setCordX(3);
+                    instance.setCordY(3);
                     //habilitarBotones();
+
                 } else if (request == SEND_MOVE_OR_GET_MOVE) {
                     cordX = input.readInt();
                     cordY = input.readInt();
                     instance.updateCasillas(cordX, cordY);
-                    habilitarBotones();
+                    //habilitarBotones();
                     Log.i("COORDENADAS SM OR GM", "" + cordX + " " + cordY);
                     output.writeByte(SEND_MOVE_OR_GET_MOVE);
-                    synchronized (this) {
-                        this.wait(5000);
+                    while(cordXClient == 3 && cordYClient == 3){
+                        cordXClient = instance.getCordX();
+                        cordYClient = instance.getCordY();
                     }
+                    cordXClient = 3;
+                    cordYClient = 3;
+                    /*synchronized (this) {
+                        this.wait(5000);
+                    }*/
+
                     output.writeInt(instance.getCordX());
                     output.writeInt(instance.getCordY());
+
+                    instance.setCordX(3);
+                    instance.setCordY(3);
                     //habilitarBotones();
                 } else if (request == GET_MOVE_AND_GET_WINNER) {
                     cordX = input.readInt();
@@ -87,7 +111,7 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
             }
 
 
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return "";
