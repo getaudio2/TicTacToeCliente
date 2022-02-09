@@ -160,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //disableBtn();
 
         Log.i("COORDENADAS ENVIADAS", "" + cordX + " " + cordY);
-        //newGame.enviarCords(cordX, cordY);
     }
 
     public int getCordX() {

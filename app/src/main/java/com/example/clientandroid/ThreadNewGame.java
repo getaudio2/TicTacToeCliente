@@ -63,9 +63,6 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                     }
                     cordXClient = 3;
                     cordYClient = 3;
-                    /*synchronized (this) {
-                        this.wait(5000);
-                    }*/
 
                     output.writeInt(instance.getCordX());
                     output.writeInt(instance.getCordY());
@@ -87,9 +84,6 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                     }
                     cordXClient = 3;
                     cordYClient = 3;
-                    /*synchronized (this) {
-                        this.wait(5000);
-                    }*/
 
                     output.writeInt(instance.getCordX());
                     output.writeInt(instance.getCordY());
@@ -103,13 +97,14 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
                     instance.updateCasillas(cordX, cordY);
                     Log.i("COORDENADAS GM AND GW","" + cordX + " " + cordY);
                     ganador = input.readInt();
-                    Log.i("SE ACABO", "Ganador: " + ganador);
+                    Log.i("SE ACABO", "Ganador (Server): " + ganador);
                 } else if (request == GET_WINNER) {
                     ganador = input.readInt();
-                    Log.i("SE ACABO", "Ganador: " + ganador);
+                    Log.i("SE ACABO", "Ganador (Cliente): " + ganador);
                 }
             }
-
+            socket.close();
+            Log.i("SOCKET TANCAT", "S'ha acabat la partida");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,16 +117,4 @@ public class ThreadNewGame extends AsyncTask<Void, Void, String> {
 
     }
 
-    public void enviarCords(int cordX, int cordY) {
-        try {
-            output.write(cordX);
-            output.write(cordY);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void habilitarBotones() {
-        instance.enableBtn();
-    }
 }
